@@ -17,7 +17,7 @@ public class DepartamentoDTO {
     private Long id;
 
     @NotBlank(message = "Campo requerido")
-    @Size(min = 3, message = "O nome deve ter mínimo 3 caracteres")
+    @Size(min = 2, message = "O nome deve ter mínimo 2 caracteres")
     private String nome;
 
     public DepartamentoDTO(Departamento departamento) {
