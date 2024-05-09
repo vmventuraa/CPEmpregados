@@ -36,7 +36,7 @@ public class DepartamentoController {
         }
         departamentoDTO = service.insert(departamentoDTO);
         attributes.addFlashAttribute("mensagem", "Departamento salvo com sucesso!");
-        return "redirect:/departamentos";
+        return "redirect:/departamentos/form";
     }
 
     @GetMapping()
@@ -52,8 +52,8 @@ public class DepartamentoController {
         model.addAttribute("departamentoDTO", departamentoDTO);
         return "/departamentos/editar-departamentos";
     }
-
-    @PutMapping("/{id}")
+    //@PutMapping("{id}") fui usar o put, mas não estava funcionando junto com o front, com post funciona
+    @PostMapping("/{id}")
     public String update(@PathVariable("id") Long id,
                          @Valid DepartamentoDTO departamentoDTO,
                          BindingResult result) {

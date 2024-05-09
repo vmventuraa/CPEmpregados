@@ -3,23 +3,54 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://thymeleaf.org">
 
-<!--xmlns:th -> declarando a variável-->
-<!--importa na página o thymeleaf e referenciada pela variável th -->
-<!--layout:decorate="~{template.html}"> definindo que vai usar
-    o sinal ~ referencia arquivo-->
-
-<!--código omitido-->
 <head>
-    <!-- declarada no template
-         <meta charset="UTF-8"> -->
+    <meta charset="UTF-8">
     <title>Home</title>
+    <style>
+        body {
+            background-color: #4CAF50; /* Fundo verde */
+            color: #FFFFFF; /* Letras brancas */
+            font-family: Arial, sans-serif; /* Fonte da letra */
+        }
+        .container {
+            text-align: center;
+            margin-top: 100px;
+        }
+        .card {
+            background-color: #FFFFFF; /* Fundo branco para o card */
+            border-radius: 10px; /* Borda arredondada */
+            padding: 20px; /* Espaçamento interno */
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); /* Sombra com mais deslocamento vertical */
+        }
+        h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .btn {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
 <div layout:fragment="conteudo">
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2 th:text="${msg}"></h2>
+                <div class="card"> <!-- Card -->
+                    <h2>Seja bem-vindo!</h2>
+                    <p>Que bom ter você aqui.</p>
+                    <p>O que vamos fazer?</p>
+                    <div>
+                        <a class="btn btn-success" href="/departamentos/form">Cadastrar Departamento</a>
+                        <a class="btn btn-success" href="/empregados/form">Cadastrar Empregado</a>
+                        <a class="btn btn-success" href="/departamentos">Visualizar Departamentos</a>
+                        <a class="btn btn-success" href="/empregados">Visualizar Empregados</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -69,7 +69,8 @@ public class EmpregadoController {
         model.addAttribute("empregadoDTO", empregadoDTO);
         return "/empregados/editar-empregados";
     }
-    @PutMapping("/{id}")
+    //@PutMapping("{id}") fui usar o put, mas não estava funcionando junto com o front, com post funciona
+    @PostMapping("/{id}")
     public String update(@PathVariable("id") Long id,
                          @Valid EmpregadoDTO empregadoDTO,
                          BindingResult result) {

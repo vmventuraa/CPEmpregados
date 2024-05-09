@@ -2,99 +2,108 @@
 <html lang="pt-br" layout:decorate="~{template.html}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://thymeleaf.org">
-<head>
-    <title>Title</title>
-</head>
-<body>
-<h1>Editar</h1>
-<div layout:fragment="conteudo">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h2>Alteração de empregado</h2>
-                <div class="alert alert-success alert-dismissible fade show" th:if="${mensagem}">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    <span th:text="${mensagem}"></span>
-                </div>
 
-                <form action="#" th:action="@{/empregados/{id}(id=${empregadoDTO.id})}" th:object="${empregadoDTO}" method="post">
-                    <input type="hidden" name="_method" value="put">
-                    <div class="row mb-3">
-                        <label class="col-sm-1 col-form-label" for="nome">Nome:</label>
-                        <div class="col-sm-5">
-                            <input class="form-control" id="nome" th:field="*{nome}" type="text"/>
-                        </div>
-                        <div class="col-sm-5">
+<head>
+    <title>Cadastro de Empregado</title>
+    <!-- Incluindo o Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilo personalizado -->
+    <style>
+        body {
+            background-color: #4CAF50; /* Fundo verde */
+            color: #FFFFFF; /* Letras brancas */
+            font-family: Arial, sans-serif; /* Fonte da letra */
+        }
+        .container {
+            text-align: center;
+            margin-top: 100px;
+        }
+        .card {
+            background-color: #FFFFFF; /* Fundo branco para o card */
+            border-radius: 10px; /* Borda arredondada */
+            padding: 20px; /* Espaçamento interno */
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); /* Sombra com mais deslocamento vertical */
+        }
+        h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .btn {
+            margin-right: 10px;
+        }
+        /* Estilo personalizado para alinhar labels à esquerda */
+        .form-label-left {
+            text-align: left;
+            display: inline-block;
+            width: 100%; /* Garante que o label ocupe toda a largura */
+            margin-bottom: 5px; /* Espaçamento inferior */
+        }
+        /* Estilo personalizado para adicionar bordas finas aos inputs */
+        .form-control {
+            border: 1px solid #ccc; /* Borda fina cinza */
+            border-radius: 10px; /* Borda arredondada */
+        }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="conteudo" class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title fw-bold text-center mb-4">Cadastro de Empregados</h2>
+                    <div class="alert alert-success alert-dismissible fade show" th:if="${mensagem}">
+                        <button class="btn-close" data-bs-dismiss="alert" type="button"></button>
+                        <span th:text="${mensagem}"></span>
+                    </div>
+                    <form action="#" th:action="@{/empregados/{id}(id=${empregadoDTO.id})}" th:object="${empregadoDTO}" method="post">
+                        <div class="mb-3">
+                            <label for="nome" class="form-label form-label-left">Nome:</label>
+                            <input id="nome" class="form-control" th:field="*{nome}" type="text"/>
                             <span class="mensagem" th:errors="*{nome}" th:if="${#fields.hasErrors('nome')}"></span>
                         </div>
-                    </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label form-label-left">Email:</label>
+                            <input id="email" class="form-control" th:field="*{email}" type="text" placeholder="ex: abc@gmail.com">
+                            <span class="mensagem" th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></span>
+                        </div>
+                        <!--adicionando e populando ComboBox departamento-->
+                        <div class="mb-3">
+                            <label for="departamento" class="form-label form-label-left">Departamento:</label>
+                            <select id="departamento" class="chosen-select form-control" data-placehold="departamento" name="departamento" th:field="*{departamento}">
+                                <option th:each="departamento : ${departamentos}" th:text="${departamento.nome}" th:value="${departamento.id}"></option>
+                            </select>
+                            <span class="mensagem" th:errors="*{departamento}" th:if="${#fields.hasErrors('departamento')}"></span>
+                        </div>
+                        <!--adicionando e populando ComboBox projeto-->
+                        <div class="mb-3">
+                            <label for="projetos" class="form-label form-label-left">Projetos:</label>
+                            <select id="projetos" class="chosen-select form-control" data-placehold="projetos" multiple="true" name="projetos" th:field="${empregadoDTO.projetos}">
+                                <option th:each="projeto :${projetos}" th:text="${projeto.nome}" th:value="${projeto.id}"></option>
+                            </select>
+                            <span class="mensagem" th:errors="*{projetos}" th:if="${#fields.hasErrors('projetos')}"></span>
+                        </div>
 
-                    <div class="row mb-3">
-                        <label class="col-sm-1 col-form-label" for="email">Email:</label>
-                        <div class="col-sm-3">
-                            <input class="form-control" id="email" th:field="*{email}" type="text" placeholder="ex: abc@gmail.com">
+                        <div class="mb-3">
+                            <label for="salario" class="form-label form-label-left">Salário:</label>
+                            <input id="salario" class="form-control" th:field="*{salario}" type="text" placeholder="Informe apenas o número em R$">
+                            <span class="mensagem" th:errors="*{salario}" th:if="${#fields.hasErrors('salario')}"></span>
                         </div>
-                        <div class="col-sm-5">
-                            <span class="mensagem" th:errors="*{email}"
-                                  th:if="${#fields.hasErrors('email')}"></span>
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <input class="btn btn-success btn-lg" type="submit" value="Salvar"/>
+                            <a href="/empregados" class="btn btn-danger btn-lg mt-2">Cancelar</a>
                         </div>
-                    </div>
-                    <!--adicionando e populando ComboBox departamento-->
-                    <div class="form-row">
-                        <div class="row mb-3">
-                            <label class="col-sm-1 col-form-label">Departamento:</label>
-                            <div class="col-sm-3">
-                                <select class="chosen-select form-control" data-placehold="departamento" id="departamento"
-                                        name="departamento" th:field="*{departamento}">
-                                    <option th:each="departamento : ${departamentos}"
-                                            th:text="${departamento.nome}"
-                                            th:value="${departamento.id}">
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="col-sm-5">
-								<span class="mensagem" th:errors="*{departamento}"
-                                      th:if="${#fields.hasErrors('departamento')}"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--adicionando e populando ComboBox projeto-->
-                    <div class="form-row">
-                        <div class="row mb-3">
-                            <label class="col-sm-1 col-form-label">Projetos:</label>
-                            <div class="col-sm-3">
-                                <select class="chosen-select form-control" data-placehold="projetos" id="projetos" multiple="true"
-                                        name="projetos" th:field="${empregadoDTO.projetos}">
-                                    <option th:each="projeto :${projetos}"
-                                            th:text="${projeto.nome}"
-                                            th:value="${projeto.id}"/>
-                                </select>
-                            </div>
-                            <div class="col-sm-5">
-								<span class="mensagem" th:errors="*{projetos}"
-                                      th:if="${#fields.hasErrors('projetos')}"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label class="col-sm-1 col-form-label" for="salario">Salário</label>
-                        <div class="col-sm-3">
-                            <input class="form-control" id="salario" th:field="*{salario}" type="text" placeholder="Informe apenas o número em R$">
-                        </div>
-                        <div class="col-sm-5">
-								<span class="mensagem" th:errors="*{salario}"
-                                      th:if="${#fields.hasErrors('salario')}"></span>
-                        </div>
-                    </div>
-
-                    <input class="btn btn-primary" type="submit" value="Alterar" />
-                </form>
-
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
 </body>
+
 </html>
