@@ -32,7 +32,7 @@ public class Empregado {
 
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "tb_departamento", nullable = false)
+    @JoinColumn(name = "departamento_id", nullable = false)
     private Departamento departamento;
 
 
