@@ -2,18 +2,15 @@ package br.com.fiap.sistemaEmpregados.models;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
@@ -26,16 +23,11 @@ public class Empregado {
     private Long id;
 
 
-    @NotBlank(message = "Campo requerido")
-    @Size(min = 3, message = "O nome deve ter no mínimo 3 carateres")
     private String nome;
 
-    @NotBlank(message = "Campo requerido")
-    @Email(message = "Por favor, insira um email válido")
+
     private String email;
 
-    @NotNull(message = "Campo requerido")
-    @Positive(message = "O valor deve ser positivo")
     private Double salario;
 
 
@@ -48,6 +40,6 @@ public class Empregado {
     @JoinTable(name = "tb_empregado_projeto",
             joinColumns = @JoinColumn(name = "empregado_id"),
             inverseJoinColumns = @JoinColumn(name = "projeto_id"))
-    private Set<Projeto> projetos =  new HashSet<>();
+    private Set<Projeto> projetos = new HashSet<>();
 
 }
