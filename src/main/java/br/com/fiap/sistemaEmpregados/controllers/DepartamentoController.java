@@ -24,7 +24,7 @@ public class DepartamentoController {
 
     @GetMapping("/form")
     public String loadFormDepartamento(Model model) {
-        model.addAttribute("departamentoDTO", new Departamento());
+        model.addAttribute("departamentoDTO", new DepartamentoDTO());
         return "departamentos/novo-departamento";
     }
 

@@ -30,6 +30,7 @@ public class EmpregadoDTO {
 
     @NotNull(message = "Campo requerido")
     @Positive(message = "O valor do salário deve ser positivo")
+
     private Double salario;
 
 
